@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMP Negeri 30 OKU - Galeri Kegiatan</title>
+    
+    <!-- FAVICON LOGO SEKOLAH -->
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0f172a;
+            --brand: #1e40af;
+            --brand-light: #3b82f6;
+            --accent: #d97706;
+            --bg-light: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* TOPBAR INSTANSI */
+        .topbar {
+            background-color: var(--primary);
+            color: #94a3b8;
+            font-size: 0.85rem;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .topbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topbar-info span {
+            margin-right: 15px;
+        }
+
+        /* HEADER & NAVBAR */
+        header {
+            background-color: var(--surface);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo-img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .brand-text h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+        }
+
+        nav a {
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--brand);
+            background-color: #eff6ff;
+        }
+
+        nav a.active {
+            color: var(--brand);
+            background-color: #dbeafe;
+            font-weight: 600;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--brand));
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .page-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #cbd5e1;
+            font-size: 1rem;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto 80px auto;
+            padding: 0 20px;
+        }
+
+        /* FILTER BUTTONS */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 8px 18px;
+            border: 1px solid var(--border);
+            background-color: var(--surface);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--brand);
+            color: white;
+            border-color: var(--brand);
+        }
+
+        /* GALLERY GRID */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .img-container {
+            width: 100%;
+            height: 210px;
+            position: relative;
+            overflow: hidden;
+            background-color: #f1f5f9;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-card:hover .gallery-img {
+            transform: scale(1.05);
+        }
+
+        .img-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .gallery-card:hover .img-overlay {
+            opacity: 1;
+        }
+
+        .gallery-body {
+            padding: 18px;
+        }
+
+        .gallery-category {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--brand-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .gallery-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .gallery-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* MODAL PREVIEW */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.85);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: var(--radius);
+            max-width: 650px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: var(--primary);
+        }
+
+        .modal-img-wrapper {
+            width: 100%;
+            max-height: 380px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 18px;
+            background: #000;
+        }
+
+        .modal-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            max-height: 380px;
+            object-fit: contain;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--primary);
+            color: #94a3b8;
+            padding-top: 60px;
+            padding-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 0 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOPBAR INFORMASI INSTANSI -->
+    <div class="topbar">
+        <div class="topbar-container">
+            <div class="topbar-info">
+                <span>📍 Jl. Lintas Baturaja-Muara Dua, Desa Tihang, Kec. Lengkiti</span>
+                <span>✉️ info@smpn30oku.sch.id</span>
+            </div>
+            <div>
+                <span>NPSN: 10604692</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="brand-logo">
+                <img src="logo.png" alt="Logo SMP Negeri 30 OKU" class="brand-logo-img">
+                <div class="brand-text">
+                    <h1>SMP NEGERI 30 OKU</h1>
+                    <p>Kabupaten Ogan Komering Ulu</p>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="profil.html">Profil</a></li>
+                    <li><a href="guru.html">Data Guru</a></li>
+                    <li><a href="pengumuman.html">Pengumuman</a></li>
+                    <li><a href="galeri.html" class="active">Galeri</a></li>
+                    <li><a href="perbaikan-data.html">Perbaikan Data Siswa</a></li>
+                    <li><a href="saran.html">Kotak Saran</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER BANNER -->
+    <section class="page-header">
+        <h2>Galeri Dokumentasi Kegiatan</h2>
+        <p>Potret aktivitas pembelajaran, keorganisasian, dan fasilitas SMP Negeri 30 OKU</p>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+
+        <!-- FILTER BUTTONS -->
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterGallery('all', this)">Semua Foto</button>
+            <button class="filter-btn" onclick="filterGallery('upacara', this)">Upacara Bendera</button>
+            <button class="filter-btn" onclick="filterGallery('pembelajaran', this)">Kegiatan KBM</button>
+            <button class="filter-btn" onclick="filterGallery('ekskul', this)">Ekstrakurikuler & Lomba</button>
+            <button class="filter-btn" onclick="filterGallery('fasilitas', this)">Fasilitas Sekolah</button>
+        </div>
+
+        <!-- GALLERY GRID -->
+        <div class="gallery-grid" id="galleryGrid">
+            
+            <!-- FOTO 1: GEDUNG SMP 30 OKU -->
+            <div class="gallery-card" data-category="fasilitas" onclick="openModal('GEDUNG SMP 30 OKU.jpeg', 'GEDUNG SMP 30 OKU', 'Tampilan area depan bangunan dan lingkungan sekolah SMP Negeri 30 OKU.')">
+                <div class="img-container">
+                    <img src="GEDUNG SMP 30 OKU.jpeg" alt="GEDUNG SMP 30 OKU" class="gallery-img">
+                    <div class="img-overlay">🔍 Perbesar Foto</div>
+                </div>
+                <div class="gallery-body">
+                    <div class="gallery-category">Fasilitas Sekolah</div>
+                    <h4 class="gallery-title">GEDUNG SMP 30 OKU</h4>
+                    <p class="gallery-desc">Suasana halaman dan gedung utama tempat pelaksanaan aktivitas sekolah.</p>
+                </div>
+            </div>
+
+            <!-- FOTO BARU 1: RUANG LAB KOMPUTER -->
+            <div class="gallery-card" data-category="fasilitas" onclick="openModal('ruang lab komputer.jpg', 'Ruang Lab Komputer', 'Fasilitas laboratorium TIK yang dilengkapi perangkat komputer untuk menunjang pembelajaran digital dan SIM-ANBK.')">
+                <div class="img-container">
+                    <img src="ruang lab komputer.jpg" alt="ruang lab komputer" class="gallery-img">
+                    <div class="img-overlay">🔍 Perbesar Foto</div>
+                </div>
+                <div class="gallery-body">
+                    <div class="gallery-category">Fasilitas Sekolah</div>
+                    <h4 class="gallery-title">Ruang Lab Komputer</h4>
+                    <p class="gallery-desc">Laboratorium komputer TIK pendukung praktikum berbasis teknologi siswa.</p>
+                </div>
+            </div>
+
+            <!-- FOTO BARU 2: RUANG PERPUSTAKAAN -->
+            <div class="gallery-card" data-category="fasilitas" onclick="openModal('ruang perpustakaan.jpg', 'Ruang Perpustakaan', 'Pusat sumber belajar dan koleksi buku bacaan untuk meningkatkan minat baca serta literasi siswa.')">
+                <div class="img-container">
+                    <img src="ruang perpustakaan.jpg" alt="ruang perpustakaan" class="gallery-img">
+                    <div class="img-overlay">🔍 Perbesar Foto</div>
+                </div>
+                <div class="gallery-body">
+                    <div class="gallery-category">Fasilitas Sekolah</div>
+                    <h4 class="gallery-title">Ruang Perpustakaan</h4>
+                    <p class="gallery-desc">Perpustakaan sekolah sebagai sarana penunjang wawasan dan kegiatan literasi.</p>
+                </div>
+            </div>
+
+            <!-- FOTO BARU 3: RUANG KELAS -->
+            <div class="gallery-card" data-category="fasilitas" onclick="openModal('ruang kelas.jpeg', 'Ruang Kelas', 'Fasilitas ruang kelas pembelajaran teori yang bersih, rapi, dan kondusif untuk KBM harian.')">
+                <div class="img-container">
+                    <img src="ruang kelas.jpeg" alt="ruang kelas" class="gallery-img">
+                    <div class="img-overlay">🔍 Perbesar Foto</div>
+                </div>
+                <div class="gallery-body">
+                    <div class="gallery-category">Fasilitas Sekolah</div>
+                    <h4 class="gallery-title">Ruang Kelas</h4>
+                    <p class="gallery-desc">Ruang kelas utama yang nyaman untuk mendukung kegiatan belajar mengajar.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 2: Upacara Hari Guru Nasional -->
+            <div class="gallery-card" data-category="upacara" onclick="openModal('Upacara Hari Guru Nasional.jpeg', 'Upacara Hari Guru Nasional', 'Peringatan Hari Guru Nasional bersama jajaran guru dan siswa di lapangan sekolah.')">
+                <div class="img-container">
+                    <img src="Upacara Hari Guru Nasional.jpeg" alt="Upacara Hari Guru Nasional" class="gallery-img">
+                    <div class="img-overlay">🔍 Perbesar Foto</div>
+                </div>
+                <div class="gallery-body">
+                    <div class="gallery-category">Upacara Bendera</div>
+                    <h4 class="gallery-title">Upacara Hari Guru Nasional</h4>
+                    <p class="gallery-desc">Pelaksanaan peringatan Hari Guru Nasional dengan khidmat di halaman sekolah.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 3: Upacara HUT RI ke-81 -->
+            <div class="gallery-card" data-category="upacara" onclick="openModal('Upacara HUT RI ke-81.jpg', 'Upacara HUT RI ke-81', 'Dokumentasi barisan siswa dan pengibaran bendera Merah Putih dalam rangka HUT RI ke-81.')">
+                <div class="img-container">
+                    <img src="Upacara HUT RI ke-81.jpg" alt="Upacara HUT RI ke-81" class="gallery-img">
+                    <div class="img-overlay">🔍 Perbesar Foto</div>
+                </div>
+                <div class="gallery-body">
+                    <div class="gallery-category">Upacara Bendera</div>
+                    <h4 class="gallery-title">Upacara HUT RI ke-81</h4>
+                    <p class="gallery-desc">Seluruh siswa dan staf mengikuti upacara bendera peringatan Kemerdekaan RI.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 4: Kegiatan Pramuka Persami -->
+            <div class="gallery-card" data-category="ekskul" onclick="openModal('Kegiatan Pramuka Persami.jpg', 'Kegiatan Pramuka Persami', 'Perkemahan Sabtu-Minggu gudep SMPN 30 OKU untuk melatih kemandirian dan kebersamaan.')">
+                <div class="img-container">
+                    <img src="Kegiatan Pramuka Persami.jpg" alt="Kegiatan Pramuka Persami" class="gallery-img">
+                    <div class="img-overlay">🔍 Perbesar Foto</div>
+                </div>
+                <div class="gallery-body">
+                    <div class="gallery-category">Ekstrakurikuler</div>
+                    <h4 class="gallery-title">Kegiatan Pramuka Persami</h4>
+                    <p class="gallery-desc">Latihan kepramukaan di lingkungan terbuka untuk membangun kedisiplinan siswa.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 5: KBM 1 -->
+            <div class="gallery-card" data-category="pembelajaran" onclick="openModal('KBM 1.jpeg', 'Kegiatan Belajar Mengajar (KBM 1)', 'Proses pembelajaran tatap muka dan diskusi aktif siswa di dalam kelas.')">
+                <div class="img-container">
+                    <img src="KBM 1.jpeg" alt="KBM 1" class="gallery-img">
+                    <div class="img-overlay">🔍 Perbesar Foto</div>
+                </div>
+                <div class="gallery-body">
+                    <div class="gallery-category">Kegiatan KBM</div>
+                    <h4 class="gallery-title">KBM 1</h4>
+                    <p class="gallery-desc">Suasana proses belajar mengajar interaktif siswa di ruang kelas.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 6: Ekstrakurikuler Rohis -->
+            <div class="gallery-card" data-category="ekskul" onclick="openModal('Ekstrakurikuler Rohis.jpeg', 'Ekstrakurikuler Rohis', 'Pembinaan rohani Islam dan pembacaan doa bersama siswa di halaman sekolah.')">
+                <div class="img-container">
+                    <img src="Ekstrakurikuler Rohis.jpeg" alt="Ekstrakurikuler Rohis" class="gallery-img">
+                    <div class="img-overlay">🔍 Perbesar Foto</div>
+                </div>
+                <div class="gallery-body">
+                    <div class="gallery-category">Ekstrakurikuler</div>
+                    <h4 class="gallery-title">Ekstrakurikuler Rohis</h4>
+                    <p class="gallery-desc">Kegiatan pembiasaan keagamaan rutin untuk memperkuat nilai-nilai IMTAQ.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 7: KBM 2 -->
+            <div class="gallery-card" data-category="pembelajaran" onclick="openModal('KBM 2.jpeg', 'Kegiatan Belajar Mengajar (KBM 2)', 'Aktivitas pembelajaran siswa dengan presentasi materi dan pengerjaan tugas.')">
+                <div class="img-container">
+                    <img src="KBM 2.jpeg" alt="KBM 2" class="gallery-img">
+                    <div class="img-overlay">🔍 Perbesar Foto</div>
+                </div>
+                <div class="gallery-body">
+                    <div class="gallery-category">Kegiatan KBM</div>
+                    <h4 class="gallery-title">KBM 2</h4>
+                    <p class="gallery-desc">Dokumentasi keaktifan dan keterlibatan siswa selama kegiatan ruang kelas.</p>
+                </div>
+            </div>
+
+            <!-- FOTO 8: GEGIATAN LOMBA 17 AGUSTUS -->
+            <div class="gallery-card" data-category="ekskul" onclick="openModal('GEGIATAN LOMBA 17 AGUTUS.jpeg', 'Kegiatan Lomba 17 Agustus', 'Kemeriahan berbagai perlombaan antar siswa dalam merayakan Hari Kemerdekaan RI.')">
+                <div class="img-container">
+                    <img src="GEGIATAN LOMBA 17 AGUTUS.jpeg" alt="GEGIATAN LOMBA 17 AGUSTUS" class="gallery-img">
+                    <div class="img-overlay">🔍 Perbesar Foto</div>
+                </div>
+                <div class="gallery-body">
+                    <div class="gallery-category">Ekstrakurikuler & Lomba</div>
+                    <h4 class="gallery-title">GEGIATAN LOMBA 17 AGUSTUS</h4>
+                    <p class="gallery-desc">Perlombaan seru antar kelas untuk memeriahkan HUT Republik Indonesia.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- MODAL PREVIEW GAMBAR INTERAKTIF -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-img-wrapper">
+                <img src="" id="modalImg" alt="Preview Foto">
+            </div>
+            <h3 id="modalTitle" style="color: var(--primary); margin-bottom: 8px;"></h3>
+            <p id="modalDesc" style="color: var(--text-main); font-size: 0.9rem;"></p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>SMP Negeri 30 OKU</h4>
+                <p>Satuan pendidikan tingkat menengah pertama di Kabupaten Ogan Komering Ulu yang berorientasi pada pembentukan karakter, IMTAQ, dan kecakapan berwawasan lingkungan.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigasi Cepat</h4>
+                <ul class="footer-links">
+                    <li><a href="profil.html">Profil & Visi Misi</a></li>
+                    <li><a href="guru.html">Direktori Guru & Staf</a></li>
+                    <li><a href="pengumuman.html">Pusat Pengumuman</a></li>
+                    <li><a href="perbaikan-data.html">Formulir Perbaikan Data</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kontak Utama</h4>
+                <p>Desa Tihang, Kec. Lengkiti<br>Kab. Ogan Komering Ulu<br>Sumatera Selatan</p>
+                <p>Email: admin@smpn30oku.sch.id</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SMP Negeri 30 OKU. Tugas Akhir / Skripsi Pengembangan Sistem Informasi Sekolah.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT FILTER & MODAL -->
+    <script>
+        function filterGallery(category, btnElement) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            const cards = document.querySelectorAll('.gallery-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function openModal(imgSrc, title, desc) {
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('imageModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+
+</body>
+</html>

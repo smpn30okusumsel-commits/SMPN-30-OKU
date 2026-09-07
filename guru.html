@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMP Negeri 30 OKU - Data Guru & Staf</title>
+    
+    <!-- IKON WEB PADA TAB BROWSER (FAVICON) -->
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0f172a;
+            --brand: #1e40af;
+            --brand-light: #3b82f6;
+            --accent: #d97706;
+            --bg-light: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* TOPBAR INSTANSI */
+        .topbar {
+            background-color: var(--primary);
+            color: #94a3b8;
+            font-size: 0.85rem;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .topbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topbar-info span {
+            margin-right: 15px;
+        }
+
+        /* HEADER & NAVBAR */
+        header {
+            background-color: var(--surface);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* LOGO SEKOLAH */
+        .logo-img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .brand-text h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+        }
+
+        nav a {
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--brand);
+            background-color: #eff6ff;
+        }
+
+        nav a.active {
+            color: var(--brand);
+            background-color: #dbeafe;
+            font-weight: 600;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--brand));
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .page-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #cbd5e1;
+            font-size: 1rem;
+        }
+
+        /* MAIN LAYOUT */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto 80px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: var(--brand);
+        }
+
+        /* CARD GRID SYSTEM */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .person-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .person-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .person-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .person-info h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+
+        .person-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* HIGHLIGHT PIMPINAN CARD */
+        .leader-card {
+            background: var(--surface);
+            border: 2px solid var(--brand);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .leader-avatar {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 3px solid var(--brand);
+        }
+
+        .leader-info h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .leader-info p {
+            color: var(--brand);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* TABLE TASK ASSIGNMENT */
+        .task-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 50px;
+            border: 1px solid var(--border);
+        }
+
+        .task-table th, .task-table td {
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .task-table th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .task-table tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--primary);
+            color: #94a3b8;
+            padding-top: 60px;
+            padding-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 0 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .leader-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOPBAR INFORMASI INSTANSI -->
+    <div class="topbar">
+        <div class="topbar-container">
+            <div class="topbar-info">
+                <span>📍 Jl. Lintas Baturaja-Muara Dua, Desa Tihang, Kec. Lengkiti</span>
+                <span>✉️ info@smpn30oku.sch.id</span>
+            </div>
+            <div>
+                <span>NPSN: 10604692</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="brand-logo">
+                <!-- LOGO SEKOLAH -->
+                <img src="logo.png" alt="Logo SMP Negeri 30 OKU" class="logo-img">
+                <div class="brand-text">
+                    <h1>SMP NEGERI 30 OKU</h1>
+                    <p>Kabupaten Ogan Komering Ulu</p>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="profil.html">Profil</a></li>
+                    <li><a href="guru.html" class="active">Data Guru</a></li>
+                    <li><a href="pengumuman.html">Pengumuman</a></li>
+                    <li><a href="galeri.html">Galeri</a></li>
+                    <li><a href="perbaikan-data.html">Perbaikan Data Siswa</a></li>
+                    <li><a href="saran.html">Kotak Saran</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER BANNER -->
+    <section class="page-header">
+        <h2>Direktori Pendidik & Tenaga Kependidikan</h2>
+        <p>Daftar Tenaga Pendidik, Staf Tata Usaha, dan Pimpinan SMP Negeri 30 OKU</p>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+
+        <!-- KEPALA SEKOLAH -->
+        <h3 class="section-title">Kepala Sekolah</h3>
+        <div class="leader-card">
+            <!-- FOTO KEPALA SEKOLAH -->
+            <img src="Kepsek.png" alt="Hamdani, S.Pd. - Kepala Sekolah SMPN 30 OKU" class="leader-avatar">
+            <div class="leader-info">
+                <h3>HAMDANI, S.Pd.</h3>
+                <p>Kepala Sekolah SMP Negeri 30 OKU</p>
+            </div>
+        </div>
+
+        <!-- WAKIL KEPALA SEKOLAH & TIM MANAJEMEN -->
+        <h3 class="section-title">Wakil Kepala Sekolah & Bidang</h3>
+        <div class="card-grid">
+            <div class="person-card">
+                <img src="icon guru laki-laki.png" alt="M. Ansori, S.Ag." class="person-avatar">
+                <div class="person-info">
+                    <h4>M. ANSORI, S.Ag.</h4>
+                    <p>Wakil Kepala Sekolah</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru wanita.png" alt="Winda Mustika Sari, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>WINDA MUSTIKA SARI, S.Pd.</h4>
+                    <p>Waka Bidang Kurikulum</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru laki-laki.png" alt="Riki Ya'cub, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>RIKI YA'CUB, S.Pd.</h4>
+                    <p>Waka Bidang Kesiswaan</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru laki-laki.png" alt="Muhlis Saputra, S.Kom." class="person-avatar">
+                <div class="person-info">
+                    <h4>MUHLIS SAPUTRA, S.Kom.</h4>
+                    <p>Waka Bidang Sarpras</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEWAN GURU -->
+        <h3 class="section-title">Dewan Guru (16 Tenaga Pendidik)</h3>
+        <div class="card-grid">
+            <div class="person-card">
+                <img src="icon guru laki-laki.png" alt="Ermadi, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>ERMADI, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru laki-laki.png" alt="M. Ansori, S.Ag." class="person-avatar">
+                <div class="person-info">
+                    <h4>M. ANSORI, S.Ag.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru wanita.png" alt="Tri Marliansari, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>TRI MARLIANSARI, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru laki-laki.png" alt="Arya Gustarandy, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>ARYA GUSTARANDY, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru laki-laki.png" alt="Makruf Ansori, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>MAKRUF ANSORI, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru wanita.png" alt="Winda Mustika Sari, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>WINDA MUSTIKA SARI, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru wanita.png" alt="Minarti, S.Pd.I." class="person-avatar">
+                <div class="person-info">
+                    <h4>MINARTI, S.Pd.I.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru laki-laki.png" alt="Riki Ya'cub, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>RIKI YA'CUB, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru wanita.png" alt="Ida Royani, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>IDA ROYANI, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru laki-laki.png" alt="Muhlis Saputra, S.Kom." class="person-avatar">
+                <div class="person-info">
+                    <h4>MUHLIS SAPUTRA, S.Kom.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru wanita.png" alt="Lusia Tantri, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>LUSIA TANTRI, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru wanita.png" alt="Endang Meisari, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>ENDANG MEISARI, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru laki-laki.png" alt="Iwan Pales, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>IWAN PALES, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru wanita.png" alt="Lilis Suryani, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>LILIS SURYANI, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru wanita.png" alt="Rika Oktiani, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>RIKA OKTIANI, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+            <div class="person-card">
+                <img src="icon guru wanita.png" alt="Ita Apriliants, S.Pd." class="person-avatar">
+                <div class="person-info">
+                    <h4>ITA APRILIANTS, S.Pd.</h4>
+                    <p>Guru Mata Pelajaran</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TATA USAHA, PEMBINA, WALI KELAS & KEPENDIDIKAN -->
+        <h3 class="section-title">Tugas Tambahan & Staf Kependidikan</h3>
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>Kategori Tugas</th>
+                    <th>Sub Bidang / Kelas</th>
+                    <th>Nama Penanggung Jawab</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2"><strong>Tata Usaha (TU)</strong></td>
+                    <td>Staf Administrasi 1</td>
+                    <td>ANNISA EGA DAYANA</td>
+                </tr>
+                <tr>
+                    <td>Staf Administrasi 2</td>
+                    <td>APRI AL FARIZI</td>
+                </tr>
+                <tr>
+                    <td rowspan="3"><strong>Wali Kelas</strong></td>
+                    <td>Kelas VII</td>
+                    <td>TRI MARLIANSARI, S.Pd.</td>
+                </tr>
+                <tr>
+                    <td>Kelas VIII</td>
+                    <td>RIKI YA'CUB, S.Pd.</td>
+                </tr>
+                <tr>
+                    <td>Kelas IX</td>
+                    <td>MAKRUF ANSORI, S.Pd.</td>
+                </tr>
+                <tr>
+                    <td rowspan="6"><strong>Pembina Kegiatan</strong></td>
+                    <td>Perpustakaan</td>
+                    <td>ERMADI, S.Pd.</td>
+                </tr>
+                <tr>
+                    <td>Laboratorium</td>
+                    <td>ARYA GUSTARANDY, S.Pd.</td>
+                </tr>
+                <tr>
+                    <td>OSIS</td>
+                    <td>RIKI YA'CUB, S.Pd.</td>
+                </tr>
+                <tr>
+                    <td>Pramuka</td>
+                    <td>ANNISA EGA DAYANA</td>
+                </tr>
+                <tr>
+                    <td>Rohis</td>
+                    <td>MINARTI, S.Pd.I.</td>
+                </tr>
+                <tr>
+                    <td>9 K</td>
+                    <td>LUSIA TANTRI, S.Pd.</td>
+                </tr>
+                <tr>
+                    <td><strong>Komite Sekolah</strong></td>
+                    <td>Ketua Komite</td>
+                    <td>LENI PUSPITARIA</td>
+                </tr>
+                <tr>
+                    <td><strong>Penjaga Sekolah</strong></td>
+                    <td>Keamanan & Kebersihan</td>
+                    <td>ARLIUS</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>SMP Negeri 30 OKU</h4>
+                <p>Satuan pendidikan tingkat menengah pertama di Kabupaten Ogan Komering Ulu yang berorientasi pada pembentukan karakter, IMTAQ, dan kecakapan berwawasan lingkungan.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigasi Cepat</h4>
+                <ul class="footer-links">
+                    <li><a href="profil.html">Profil & Visi Misi</a></li>
+                    <li><a href="guru.html">Direktori Guru & Staf</a></li>
+                    <li><a href="pengumuman.html">Pusat Pengumuman</a></li>
+                    <li><a href="perbaikan-data.html">Formulir Perbaikan Data</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kontak Utama</h4>
+                <p>Desa Tihang, Kec. Lengkiti<br>Kab. Ogan Komering Ulu<br>Sumatera Selatan</p>
+                <p>Email: admin@smpn30oku.sch.id</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SMP Negeri 30 OKU. Tugas Akhir / Skripsi Pengembangan Sistem Informasi Sekolah.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

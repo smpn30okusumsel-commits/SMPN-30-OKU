@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMP Negeri 30 OKU - Pengumuman Sekolah</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0f172a;
+            --brand: #1e40af;
+            --brand-light: #3b82f6;
+            --accent: #d97706;
+            --bg-light: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* TOPBAR INSTANSI */
+        .topbar {
+            background-color: var(--primary);
+            color: #94a3b8;
+            font-size: 0.85rem;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .topbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topbar-info span {
+            margin-right: 15px;
+        }
+
+        /* HEADER & NAVBAR */
+        header {
+            background-color: var(--surface);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--brand);
+            color: white;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .brand-text h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+        }
+
+        nav a {
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--brand);
+            background-color: #eff6ff;
+        }
+
+        nav a.active {
+            color: var(--brand);
+            background-color: #dbeafe;
+            font-weight: 600;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--brand));
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .page-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #cbd5e1;
+            font-size: 1rem;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto 80px auto;
+            padding: 0 20px;
+        }
+
+        /* FILTER BUTTONS */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 18px;
+            border: 1px solid var(--border);
+            background-color: var(--surface);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--brand);
+            color: white;
+            border-color: var(--brand);
+        }
+
+        /* ANNOUNCEMENT LIST LAYOUT */
+        .announcement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .announcement-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .announcement-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .badge-akademik { background-color: #dbeafe; color: var(--brand); }
+        .badge-kegiatan { background-color: #fef3c7; color: #b45309; }
+        .badge-info { background-color: #dcfce7; color: #15803d; }
+
+        .card-date {
+            color: var(--text-muted);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .card-excerpt {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+
+        .btn-read-more {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--brand);
+        }
+
+        .btn-read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--primary);
+            color: #94a3b8;
+            padding-top: 60px;
+            padding-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 0 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOPBAR INFORMASI INSTANSI -->
+    <div class="topbar">
+        <div class="topbar-container">
+            <div class="topbar-info">
+                <span>📍 Jl. Lintas Baturaja-Muara Dua, Desa Tihang, Kec. Lengkiti</span>
+                <span>✉️ info@smpn30oku.sch.id</span>
+            </div>
+            <div>
+                <span>NPSN: 10604692</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="brand-logo">
+                <div class="logo-icon">30</div>
+                <div class="brand-text">
+                    <h1>SMP NEGERI 30 OKU</h1>
+                    <p>Kabupaten Ogan Komering Ulu</p>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="profil.html">Profil</a></li>
+                    <li><a href="guru.html">Data Guru</a></li>
+                    <li><a href="pengumuman.html" class="active">Pengumuman</a></li>
+                    <li><a href="galeri.html">Galeri</a></li>
+                    <li><a href="perbaikan-data.html">Perbaikan Data Siswa</a></li>
+                    <li><a href="saran.html">Kotak Saran</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PAGE HEADER BANNER -->
+    <section class="page-header">
+        <h2>Pusat Informasi & Pengumuman</h2>
+        <p>Berita resmi, edaran akademik, dan jadwal agenda kegiatan SMP Negeri 30 OKU</p>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        
+        <!-- FILTER CATEGORY -->
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterCategory('all', this)">Semua Pengumuman</button>
+            <button class="filter-btn" onclick="filterCategory('akademik', this)">Akademik</button>
+            <button class="filter-btn" onclick="filterCategory('kegiatan', this)">Kegiatan & Ekskul</button>
+            <button class="filter-btn" onclick="filterCategory('info', this)">Informasi Umum</button>
+        </div>
+
+        <!-- LIST PENGUMUMAN -->
+        <div class="announcement-list" id="announcementList">
+            
+            <article class="announcement-card" data-category="akademik">
+                <div class="card-meta">
+                    <span class="badge badge-akademik">Akademik</span>
+                    <span class="card-date">🗓️ 15 Agustus 2026</span>
+                </div>
+                <h3 class="card-title">Jadwal Asesmen Sumatif Tengah Semester Ganjil TA 2026/2027</h3>
+                <p class="card-excerpt">Diberitahukan kepada seluruh siswa kelas VII, VIII, dan IX bahwa Asesmen Sumatif Tengah Semester Ganjil akan dilaksanakan mulai tanggal 7 September 2026. Jadwal per mata pelajaran dapat diunduh melalui lampiran resmi.</p>
+                <a href="#" class="btn-read-more">Baca Selengkapnya &rarr;</a>
+            </article>
+
+            <article class="announcement-card" data-category="info">
+                <div class="card-meta">
+                    <span class="badge badge-info">Informasi Umum</span>
+                    <span class="card-date">🗓️ 02 Agustus 2026</span>
+                </div>
+                <h3 class="card-title">Imbauan Verifikasi Mandiri & Perbaikan Data Siswa Berbasis NISN</h3>
+                <p class="card-excerpt">Bagi orang tua / wali murid yang mendapati kesalahan ejaan nama, tempat tanggal lahir, atau NIK pada kartu keluarga, diimbau untuk mengisi formulir perbaikan data secara daring sebelum batas akhir sinkronisasi Dapodik.</p>
+                <a href="perbaikan-data.html" class="btn-read-more">Ke Formulir Perbaikan Data &rarr;</a>
+            </article>
+
+            <article class="announcement-card" data-category="kegiatan">
+                <div class="card-meta">
+                    <span class="badge badge-kegiatan">Kegiatan</span>
+                    <span class="card-date">🗓️ 20 Juli 2026</span>
+                </div>
+                <h3 class="card-title">Pelaksanaan Perkemahan Sabtu-Minggu (Persami) Gudep Pramuka SMPN 30 OKU</h3>
+                <p class="card-excerpt">Dalam rangka penerimaan anggota baru Gerakan Pramuka SMP Negeri 30 OKU, kegiatan Persami wajib diikuti oleh seluruh siswa kelas VII pada tanggal 29 - 30 Juli 2026 di halaman utama sekolah.</p>
+                <a href="#" class="btn-read-more">Baca Selengkapnya &rarr;</a>
+            </article>
+
+            <article class="announcement-card" data-category="akademik">
+                <div class="card-meta">
+                    <span class="badge badge-akademik">Akademik</span>
+                    <span class="card-date">🗓️ 10 Juli 2026</span>
+                </div>
+                <h3 class="card-title">Pembagian Kelompok Pembelajaran & Wali Kelas Tahun Ajaran 2026/2027</h3>
+                <p class="card-excerpt">Daftar pembagian kelas untuk tahun ajaran baru telah dirilis. Pembina dan Wali Kelas VII (Tri Marliansari, S.Pd.), VIII (Riki Ya'cub, S.Pd.), dan IX (Makruf Ansori, S.Pd.) siap memandu proses KBM.</p>
+                <a href="guru.html" class="btn-read-more">Lihat Struktur Wali Kelas &rarr;</a>
+            </article>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>SMP Negeri 30 OKU</h4>
+                <p>Satuan pendidikan tingkat menengah pertama di Kabupaten Ogan Komering Ulu yang berorientasi pada pembentukan karakter, IMTAQ, dan kecakapan berwawasan lingkungan.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigasi Cepat</h4>
+                <ul class="footer-links">
+                    <li><a href="profil.html">Profil & Visi Misi</a></li>
+                    <li><a href="guru.html">Direktori Guru & Staf</a></li>
+                    <li><a href="pengumuman.html">Pusat Pengumuman</a></li>
+                    <li><a href="perbaikan-data.html">Formulir Perbaikan Data</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kontak Utama</h4>
+                <p>Desa Tihang, Kec. Lengkiti<br>Kab. Ogan Komering Ulu<br>Sumatera Selatan</p>
+                <p>Email: admin@smpn30oku.sch.id</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SMP Negeri 30 OKU. Tugas Akhir / Skripsi Pengembangan Sistem Informasi Sekolah.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT FILTER PENGUMUMAN -->
+    <script>
+        function filterCategory(category, btnElement) {
+            // Update active button state
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            // Filter cards
+            const cards = document.querySelectorAll('.announcement-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

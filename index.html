@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMP Negeri 30 OKU - Beranda</title>
+    
+    <!-- FAVICON (LOGO SEKOLAH DI TAB BROWSER) -->
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0f172a;
+            --brand: #1e40af;
+            --brand-light: #3b82f6;
+            --accent: #d97706;
+            --bg-light: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 25px -5px rgba(30, 64, 175, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* TOPBAR INSTANSI */
+        .topbar {
+            background-color: var(--primary);
+            color: #94a3b8;
+            font-size: 0.85rem;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .topbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topbar-info span {
+            margin-right: 15px;
+        }
+
+        /* HEADER & NAVBAR */
+        header {
+            background-color: var(--surface);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo-img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .brand-text h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+        }
+
+        nav a {
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--brand);
+            background-color: #eff6ff;
+        }
+
+        nav a.active {
+            color: var(--brand);
+            background-color: #dbeafe;
+            font-weight: 600;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.45) 55%, rgba(15, 23, 42, 0.92) 85%), 
+                        url('potohome.jpg') center top / cover no-repeat;
+            color: white;
+            padding: 350px 20px 60px 20px;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: #f1f5f9;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-primary {
+            background-color: var(--brand-light);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+
+        .btn-outline {
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            background-color: rgba(15, 23, 42, 0.6);
+            color: white;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        /* SAMBUTAN KEPALA SEKOLAH */
+        .welcome-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+            border: 1px solid #dbeafe;
+            border-left: 6px solid var(--brand);
+            border-radius: var(--radius);
+            padding: 35px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .welcome-avatar-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .welcome-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--surface);
+            box-shadow: 0 4px 14px rgba(30, 64, 175, 0.2);
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+        }
+
+        .welcome-badge {
+            display: inline-block;
+            background-color: #dbeafe;
+            color: var(--brand);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .welcome-text h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 2px;
+        }
+
+        .welcome-text .title {
+            color: var(--brand);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+
+        .welcome-text p {
+            color: var(--text-main);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* STATISTIK RINGKAS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--brand-light);
+            border-radius: var(--radius);
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-top-color: var(--accent);
+        }
+
+        .stat-icon {
+            width: 42px;
+            height: 42px;
+            background: #eff6ff;
+            color: var(--brand);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px auto;
+            font-size: 1.2rem;
+        }
+
+        .stat-card h4 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 6px;
+        }
+
+        .stat-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* QUICK SERVICES (TOMBOL NISN & PIP) */
+        .quick-services-container {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .service-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            flex: 1;
+            min-width: 260px;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .service-box:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-service {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 14px 24px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 10px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.25s ease;
+        }
+
+        .btn-nisn {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        }
+
+        .btn-nisn:hover {
+            box-shadow: 0 6px 18px rgba(30, 64, 175, 0.3);
+        }
+
+        .btn-pip {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+        }
+
+        .btn-pip:hover {
+            box-shadow: 0 6px 18px rgba(217, 119, 6, 0.3);
+        }
+
+        .btn-service svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .service-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-top: 2px;
+        }
+
+        /* KARTU LOKASI & KONTAK */
+        .location-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04);
+            margin-bottom: 50px;
+        }
+
+        .location-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .location-title svg {
+            width: 24px;
+            height: 24px;
+            fill: #0284c7;
+        }
+
+        .location-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .contact-icon-wrapper {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon-wrapper svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .map-frame-wrapper {
+            width: 100%;
+            height: 280px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .map-frame-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .btn-directions-container {
+            text-align: center;
+        }
+
+        .btn-directions {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4f46e5 100%);
+            color: white;
+            padding: 13px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+            transition: all 0.25s ease;
+        }
+
+        .btn-directions:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+        }
+
+        .btn-directions svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--primary);
+            color: #94a3b8;
+            padding-top: 60px;
+            padding-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-col p {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-email-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            color: #e2e8f0;
+        }
+
+        .footer-email-item svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--brand-light);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 0 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero {
+                padding: 240px 15px 40px 15px;
+            }
+            .hero h2 {
+                font-size: 1.6rem;
+            }
+            .welcome-card {
+                flex-direction: column;
+                text-align: center;
+                border-left: 1px solid #dbeafe;
+                border-top: 6px solid var(--brand);
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .quick-services-container {
+                flex-direction: column;
+            }
+            .service-box {
+                max-width: 100%;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            .location-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOPBAR INFORMASI INSTANSI -->
+    <div class="topbar">
+        <div class="topbar-container">
+            <div class="topbar-info">
+                <span>📍 Jl. Lintas Baturaja-Muara Dua, Desa Tihang, Kec. Lengkiti</span>
+                <span>✉️ smpnegeri30okuoke@gmail.com</span>
+            </div>
+            <div>
+                <span>NPSN: 10604692</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="brand-logo">
+                <img src="logo.png" alt="Logo SMP Negeri 30 OKU" class="brand-logo-img">
+                <div class="brand-text">
+                    <h1>SMP NEGERI 30 OKU</h1>
+                    <p>Kabupaten Ogan Komering Ulu</p>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Beranda</a></li>
+                    <li><a href="profil.html">Profil</a></li>
+                    <li><a href="guru.html">Data Guru</a></li>
+                    <li><a href="pengumuman.html">Pengumuman</a></li>
+                    <li><a href="galeri.html">Galeri</a></li>
+                    <li><a href="perbaikan-data.html">Perbaikan Data Siswa</a></li>
+                    <li><a href="saran.html">Kotak Saran</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <section class="hero">
+        <div class="hero-container">
+            <h2>Selamat Datang di Portal Layanan Informasi SMP Negeri 30 OKU</h2>
+            <p>Mewujudkan generasi terdidik yang cerdas, berkarakter, unggul dalam IMTAQ, dan berwawasan lingkungan.</p>
+            <div class="hero-buttons">
+                <a href="profil.html" class="btn btn-primary">Lihat Profil Sekolah</a>
+                <a href="perbaikan-data.html" class="btn btn-outline">Perbaikan Data Siswa</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+
+        <!-- SAMBUTAN KEPALA SEKOLAH -->
+        <div class="welcome-card">
+            <div class="welcome-avatar-wrapper">
+                <img src="kepsek.png" alt="Hamdani, S.Pd." class="welcome-avatar">
+            </div>
+            <div class="welcome-text">
+                <span class="welcome-badge">Sambutan Resmi</span>
+                <h3>HAMDANI, S.Pd.</h3>
+                <p class="title">Kepala Sekolah SMP Negeri 30 OKU</p>
+                <p>Selamat datang di situs informasi SMP Negeri 30 OKU. Portal ini dibangun sebagai sarana komunikasi, transparansi informasi publik, serta memberikan kemudahan layanan bagi para siswa, tenaga kependidikan, dan wali murid.</p>
+            </div>
+        </div>
+
+        <!-- STATISTIK RINGKAS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👨‍🏫</div>
+                <h4>16</h4>
+                <p>Tenaga Pendidik</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏫</div>
+                <h4>3</h4>
+                <p>Rombongan Belajar</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <h4>B</h4>
+                <p>Akreditasi Sekolah</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💻</div>
+                <h4>100%</h4>
+                <p>Layanan Digital</p>
+            </div>
+        </div>
+
+        <!-- TOMBOL LAYANAN KEMENDIKDASMEN (NISN & PIP) -->
+        <div class="quick-services-container">
+            <div class="service-box">
+                <a href="https://nisn.data.kemendikdasmen.go.id/" target="_blank" rel="noopener noreferrer" class="btn-service btn-nisn">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                    Cek NISN Siswa
+                </a>
+                <p class="service-desc">Cari dan verifikasi Nomor Induk Siswa Nasional secara mandiri di portal Kemendikdasmen.</p>
+            </div>
+            <div class="service-box">
+                <a href="https://pip.kemendikdasmen.go.id/home_v1" target="_blank" rel="noopener noreferrer" class="btn-service btn-pip">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+                    Cek Penerima PIP
+                </a>
+                <p class="service-desc">Periksa status penerimaan dan jadwal pencairan dana Program Indonesia Pintar siswa.</p>
+            </div>
+        </div>
+
+        <!-- LOKASI & KONTAK SEKOLAH -->
+        <div class="location-card">
+            <div class="location-title">
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                Lokasi & Kontak SMP Negeri 30 OKU
+            </div>
+            <p class="location-desc">Kunjungi kantor sekretariat kami atau hubungi nomor telepon layanan operasional berikut:</p>
+            
+            <div class="contact-list">
+                <div class="contact-item">
+                    <div class="contact-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="#ef4444"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </div>
+                    <span>Desa Tihang, Kec. Lengkiti, Kab. Ogan Komering Ulu, Sumatera Selatan.</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="#10b981"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    </div>
+                    <span>+62 877-8186-5701 (Admin Utama)</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="#0284c7"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </div>
+                    <span>smpnegeri30okuoke@gmail.com</span>
+                </div>
+            </div>
+
+            <!-- EMBED GOOGLE MAPS -->
+            <div class="map-frame-wrapper">
+                <iframe 
+                    src="https://maps.google.com/maps?q=SMP%20Negeri%2030%20OKU&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+
+            <!-- TOMBOL PETUNJUK ARAH GOOGLE MAPS -->
+            <div class="btn-directions-container">
+                <a href="https://maps.app.goo.gl/UmNhHm3yr64QL1Un9" target="_blank" class="btn-directions">
+                    <svg viewBox="0 0 24 24"><path d="M21.71 11.29l-9-9c-.39-.39-1.02-.39-1.41 0l-9 9c-.39.39-.39 1.02 0 1.41l9 9c.39.39 1.02.39 1.41 0l9-9c.39-.38.39-1.01 0-1.41zM14 14.5V12h-4v3H8.5v-4.5c0-.55.45-1 1-1H14V7l3.5 3.5L14 14.5z"/></svg>
+                    Petunjuk Arah Google Maps
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>SMP Negeri 30 OKU</h4>
+                <p>Satuan pendidikan tingkat menengah pertama di Kabupaten Ogan Komering Ulu yang berorientasi pada pembentukan karakter, IMTAQ, dan kecakapan berwawasan lingkungan.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigasi Cepat</h4>
+                <ul class="footer-links">
+                    <li><a href="profil.html">Profil & Visi Misi</a></li>
+                    <li><a href="guru.html">Direktori Guru & Staf</a></li>
+                    <li><a href="pengumuman.html">Pusat Pengumuman</a></li>
+                    <li><a href="perbaikan-data.html">Formulir Perbaikan Data</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kontak Utama</h4>
+                <p>Desa Tihang, Kec. Lengkiti<br>Kab. Ogan Komering Ulu<br>Sumatera Selatan</p>
+                <p class="footer-email-item">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <span>smpnegeri30okuoke@gmail.com</span>
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SMP Negeri 30 OKU. Tugas Akhir / Skripsi Pengembangan Sistem Informasi Sekolah.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
