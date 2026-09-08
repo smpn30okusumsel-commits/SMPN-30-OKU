@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel SMPN 30 OKU</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Firebase Compat SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+</head>
+<body class="bg-[#f1f5f9] text-slate-800 font-sans min-h-screen flex flex-col">
+
+  <!-- HEADER BAR -->
+  <header class="bg-[#1d4ed8] text-white px-6 py-3 flex justify-between items-center shadow-sm">
+    <h1 class="font-bold text-base tracking-wide">Admin Panel SMPN 30 OKU</h1>
+    <button onclick="alert('Berhasil keluar dari sistem.')" class="bg-[#ef4444] hover:bg-red-600 text-white text-xs px-4 py-1.5 rounded-md font-medium transition-colors">
+      Keluar
+    </button>
+  </header>
+
+  <!-- MAIN CONTAINER (SIDEBAR + CONTENT) -->
+  <div class="flex flex-1">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="w-60 bg-white p-4 flex-shrink-0 border-r border-slate-200">
+      <nav class="space-y-1">
+        <button onclick="switchTab('pengumuman')" id="btn-nav-pengumuman" class="nav-btn w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl text-slate-600 hover:bg-slate-50 transition-colors">
+          Pengumuman
+        </button>
+        <button onclick="switchTab('perbaikan')" id="btn-nav-perbaikan" class="nav-btn w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl bg-blue-50 text-blue-600 transition-colors">
+          Pengajuan Siswa
+        </button>
+        <button onclick="switchTab('saran')" id="btn-nav-saran" class="nav-btn w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl text-slate-600 hover:bg-slate-50 transition-colors">
+          Kotak Saran
+        </button>
+      </nav>
+    </aside>
+
+    <!-- CONTENT AREA -->
+    <main class="flex-1 p-6">
+      
+      <!-- TAB: PENGUMUMAN -->
+      <section id="content-pengumuman" class="tab-content hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+          <h2 class="text-xl font-bold mb-4 text-slate-800">Buat Pengumuman Baru</h2>
+          <form id="form-pengumuman" onsubmit="tambahPengumuman(event)" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Judul Pengumuman</label>
+              <input type="text" id="judul-pengumuman" required placeholder="Masukkan judul..." class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Isi Pengumuman</label>
+              <textarea id="isi-pengumuman" rows="3" required placeholder="Tuliskan isi pengumuman..." class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+            </div>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-md font-semibold transition-colors">
+              Publikasikan Pengumuman
+            </button>
+          </form>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+          <h2 class="text-xl font-bold mb-4 text-slate-800">Daftar Pengumuman Aktif</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm border-collapse">
+              <thead class="bg-[#f8fafc] text-slate-700 border-b border-slate-100">
+                <tr>
+                  <th class="p-3.5 font-semibold">Tanggal</th>
+                  <th class="p-3.5 font-semibold">Judul</th>
+                  <th class="p-3.5 font-semibold">Isi Pengumuman</th>
+                  <th class="p-3.5 font-semibold text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-pengumuman" class="divide-y divide-slate-100">
+                <tr><td colspan="4" class="p-4 text-center text-slate-400">Memuat pengumuman...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: PENGAJUAN SISWA -->
+      <section id="content-perbaikan" class="tab-content bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <h2 class="text-xl font-bold mb-6 text-slate-800">Daftar Pengajuan Perbaikan Data Siswa</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead class="bg-[#f8fafc] text-slate-700 border-b border-slate-100">
+              <tr>
+                <th class="p-3.5 font-semibold">Tanggal</th>
+                <th class="p-3.5 font-semibold">Nama Siswa</th>
+                <th class="p-3.5 font-semibold">NISN</th>
+                <th class="p-3.5 font-semibold">Keterangan Perbaikan</th>
+                <th class="p-3.5 font-semibold">Berkas</th>
+                <th class="p-3.5 font-semibold">Status</th>
+                <th class="p-3.5 font-semibold text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tabel-perbaikan" class="divide-y divide-slate-100">
+              <tr><td colspan="7" class="p-4 text-center text-slate-400">Memuat pengajuan...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB: KOTAK SARAN -->
+      <section id="content-saran" class="tab-content hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <h2 class="text-xl font-bold mb-6 text-slate-800">Masukan & Kotak Saran</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead class="bg-[#f8fafc] text-slate-700 border-b border-slate-100">
+              <tr>
+                <th class="p-3.5 font-semibold">Tanggal</th>
+                <th class="p-3.5 font-semibold">Pengirim</th>
+                <th class="p-3.5 font-semibold">Kategori</th>
+                <th class="p-3.5 font-semibold">Subjek & Pesan</th>
+                <th class="p-3.5 font-semibold text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tabel-saran" class="divide-y divide-slate-100">
+              <tr><td colspan="5" class="p-4 text-center text-slate-400">Memuat saran...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- MODAL PRATINJAU BERKAS DOKUMEN -->
+  <div id="modal-berkas" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+        <h3 class="font-bold text-slate-800 text-sm">Pratinjau Berkas Lampiran</h3>
+        <button onclick="tutupModalBerkas()" class="text-slate-400 hover:text-slate-700 text-xl font-bold px-2">&times;</button>
+      </div>
+      <div id="modal-berkas-body" class="p-4 flex-1 overflow-auto flex justify-center items-center bg-slate-100 min-h-[400px]">
+      </div>
+      <div class="px-6 py-3 border-t border-slate-100 bg-slate-50 flex justify-end gap-2">
+        <a id="modal-btn-download" href="#" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-lg font-semibold transition-colors flex items-center gap-1">
+          ↗ Buka di Tab Baru
+        </a>
+        <button onclick="tutupModalBerkas()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs px-4 py-2 rounded-lg font-semibold transition-colors">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyADQyNt-a0gLw6EBVxnYOCbHQEKrkr5M-M",
+      authDomain: "smpn-30-oku-848b9.firebaseapp.com",
+      projectId: "smpn-30-oku-848b9",
+      storageBucket: "smpn-30-oku-848b9.firebasestorage.app",
+      messagingSenderId: "1061021655997",
+      appId: "1:1061021655997:web:50b4868331857a85fbe8d4",
+      measurementId: "G-K0H0QS34J7"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const berkasStore = {};
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.className = "nav-btn w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl text-slate-600 hover:bg-slate-50 transition-colors";
+      });
+
+      const targetContent = document.getElementById('content-' + tabName);
+      if (targetContent) targetContent.classList.remove('hidden');
+      
+      const activeBtn = document.getElementById('btn-nav-' + tabName);
+      if (activeBtn) {
+        activeBtn.className = "nav-btn w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl bg-blue-50 text-blue-600 transition-colors";
+      }
+    }
+
+    // Pemindai Otomatis URL / Base64 Berkas di Firestore
+    function deteksiURLBerkas(data) {
+      if (!data) return null;
+      
+      const priorityKeys = ['berkasUrl', 'berkas', 'fileUrl', 'file', 'lampiran', 'url', 'foto', 'dokumen', 'bukti'];
+      for (let key of priorityKeys) {
+        if (data[key] && typeof data[key] === 'string' && data[key].trim() !== '') {
+          return data[key];
+        }
+      }
+
+      for (let key in data) {
+        if (typeof data[key] === 'string') {
+          const val = data[key].trim();
+          if (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('data:')) {
+            return val;
+          }
+        }
+      }
+
+      return null;
+    }
+
+    function lihatBerkas(docId) {
+      const dataUrl = berkasStore[docId];
+      if (!dataUrl) {
+        alert("Berkas tidak tersedia.");
+        return;
+      }
+
+      const body = document.getElementById('modal-berkas-body');
+      const btnDownload = document.getElementById('modal-btn-download');
+      btnDownload.href = dataUrl;
+
+      if (dataUrl.startsWith("data:application/pdf") || dataUrl.includes(".pdf")) {
+        body.innerHTML = `<iframe src="${dataUrl}" class="w-full h-[65vh] rounded-lg border-0"></iframe>`;
+      } else {
+        body.innerHTML = `<img src="${dataUrl}" class="max-w-full max-h-[65vh] object-contain rounded-lg shadow-sm" alt="Berkas Pengajuan" />`;
+      }
+
+      document.getElementById('modal-berkas').classList.remove('hidden');
+    }
+
+    function tutupModalBerkas() {
+      document.getElementById('modal-berkas').classList.add('hidden');
+      document.getElementById('modal-berkas-body').innerHTML = '';
+    }
+
+    // --- FITUR KELOLA PENGUMUMAN ---
+    function loadPengumumanData() {
+      db.collection("pengumuman").orderBy("tanggal", "desc").onSnapshot(snapshot => {
+        const tbody = document.getElementById('tabel-pengumuman');
+        if (!tbody) return;
+        if (snapshot.empty) {
+          tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Belum ada pengumuman terbit.</td></tr>`;
+          return;
+        }
+        let html = "";
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const tgl = data.tanggal ? new Date(data.tanggal.toDate()).toLocaleDateString("id-ID") : "-";
+          html += `
+            <tr class="hover:bg-slate-50/50">
+              <td class="p-3.5 text-xs text-slate-500">${tgl}</td>
+              <td class="p-3.5 font-bold text-slate-900">${data.judul || '-'}</td>
+              <td class="p-3.5 text-slate-600 text-xs max-w-sm leading-relaxed">${data.isi || '-'}</td>
+              <td class="p-3.5 text-center">
+                <button onclick="hapusPengumuman('${doc.id}')" class="bg-red-600 hover:bg-red-700 text-white text-xs px-2.5 py-1 rounded-md font-medium transition-colors">Hapus</button>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = html;
+      });
+    }
+
+    function tambahPengumuman(e) {
+      e.preventDefault();
+      const judul = document.getElementById('judul-pengumuman').value;
+      const isi = document.getElementById('isi-pengumuman').value;
+
+      db.collection("pengumuman").add({
+        judul: judul,
+        isi: isi,
+        tanggal: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        document.getElementById('form-pengumuman').reset();
+        alert("Pengumuman berhasil dipublikasikan!");
+      }).catch(err => {
+        alert("Gagal menambahkan pengumuman: " + err.message);
+      });
+    }
+
+    function hapusPengumuman(id) {
+      if (confirm("Apakah Anda yakin ingin menghapus pengumuman ini?")) {
+        db.collection("pengumuman").doc(id).delete();
+      }
+    }
+
+    // --- FITUR PERBAIKAN DATA SISWA ---
+    function loadPerbaikanData() {
+      db.collection("perbaikan_data").orderBy("tanggal", "desc").onSnapshot(snapshot => {
+        const tbody = document.getElementById('tabel-perbaikan');
+        if (snapshot.empty) {
+          tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">Belum ada pengajuan perbaikan data.</td></tr>`;
+          return;
+        }
+        let html = "";
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          
+          console.log("Data Firestore [ID: " + doc.id + "]:", data);
+
+          const tgl = data.tanggal ? new Date(data.tanggal.toDate()).toLocaleDateString("id-ID") : "-";
+          const status = data.status || "Pending";
+          
+          let badgeColor = "bg-amber-100 text-amber-700";
+          if (status === "Selesai") badgeColor = "bg-emerald-100 text-emerald-700";
+          if (status === "Ditolak") badgeColor = "bg-red-100 text-red-700";
+
+          const berkasValue = deteksiURLBerkas(data);
+
+          if (berkasValue) {
+            berkasStore[doc.id] = berkasValue;
+          }
+
+          const berkasBtn = berkasValue 
+            ? `<button onclick="lihatBerkas('${doc.id}')" class="inline-flex items-center gap-1 bg-blue-50 text-blue-600 hover:bg-blue-100 font-semibold text-xs px-2.5 py-1 rounded-md border border-blue-200 transition-colors">📂 Lihat Berkas</button>`
+            : `<span class="text-slate-400 text-xs italic">Tanpa Berkas</span>`;
+
+          html += `
+            <tr class="hover:bg-slate-50/50">
+              <td class="p-3.5 text-xs text-slate-500">${tgl}</td>
+              <td class="p-3.5 font-bold text-slate-900">${data.nama || '-'}</td>
+              <td class="p-3.5 text-slate-600 text-xs">${data.nisn || '-'}</td>
+              <td class="p-3.5 text-slate-600 text-xs max-w-sm leading-relaxed">${data.keterangan || '-'}</td>
+              <td class="p-3.5">${berkasBtn}</td>
+              <td class="p-3.5"><span class="px-3 py-1 rounded-full text-xs font-semibold ${badgeColor}">${status}</span></td>
+              <td class="p-3.5 text-center space-x-1 whitespace-nowrap">
+                <button onclick="ubahStatusPerbaikan('${doc.id}', 'Selesai')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-2.5 py-1 rounded-md font-medium transition-colors">Setujui</button>
+                <button onclick="ubahStatusPerbaikan('${doc.id}', 'Ditolak')" class="bg-amber-600 hover:bg-amber-700 text-white text-xs px-2.5 py-1 rounded-md font-medium transition-colors">Tolak</button>
+                <button onclick="hapusPerbaikan('${doc.id}')" class="bg-red-600 hover:bg-red-700 text-white text-xs px-2.5 py-1 rounded-md font-medium transition-colors">Hapus</button>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = html;
+      });
+    }
+
+    function ubahStatusPerbaikan(id, statusBaru) {
+      db.collection("perbaikan_data").doc(id).update({
+        status: statusBaru
+      });
+    }
+
+    function hapusPerbaikan(id) {
+      if (confirm("Apakah Anda yakin ingin menghapus data pengajuan ini?")) {
+        db.collection("perbaikan_data").doc(id).delete();
+      }
+    }
+
+    // --- FITUR KOTAK SARAN ---
+    function loadSaranData() {
+      db.collection("saran").orderBy("tanggal", "desc").onSnapshot(snapshot => {
+        const tbody = document.getElementById('tabel-saran');
+        if (!tbody) return;
+        if (snapshot.empty) {
+          tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada saran masuk.</td></tr>`;
+          return;
+        }
+        let html = "";
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const tgl = data.tanggal ? new Date(data.tanggal.toDate()).toLocaleDateString("id-ID", {
+            day: 'numeric', month: 'short', year: 'numeric'
+          }) : "-";
+
+          const nama = data.nama || 'Anonim';
+          const peran = data.peran ? `<span class="text-slate-500 font-normal">(${data.peran})</span>` : '';
+          const email = (data.email && data.email !== '-') ? `<div class="text-[11px] text-slate-400 font-normal">${data.email}</div>` : '';
+          const kategori = data.kategori || 'Umum';
+          const subjek = data.subjek ? `<div class="font-bold text-slate-800 text-xs">${data.subjek}</div>` : '';
+          const pesan = data.pesan || '-';
+
+          html += `
+            <tr class="hover:bg-slate-50/50">
+              <td class="p-3.5 text-xs text-slate-500 whitespace-nowrap">${tgl}</td>
+              <td class="p-3.5 text-xs">
+                <div class="font-bold text-slate-900">${nama} ${peran}</div>
+                ${email}
+              </td>
+              <td class="p-3.5 text-xs">
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-medium bg-blue-50 text-blue-700 border border-blue-100 whitespace-nowrap">${kategori}</span>
+              </td>
+              <td class="p-3.5 text-xs leading-relaxed max-w-xs sm:max-w-md">
+                ${subjek}
+                <div class="text-slate-600 mt-0.5">${pesan}</div>
+              </td>
+              <td class="p-3.5 text-center whitespace-nowrap">
+                <button onclick="hapusSaran('${doc.id}')" class="bg-red-600 hover:bg-red-700 text-white text-xs px-2.5 py-1 rounded-md font-medium transition-colors">Hapus</button>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = html;
+      });
+    }
+
+    function hapusSaran(id) {
+      if (confirm("Hapus pesan saran ini?")) {
+        db.collection("saran").doc(id).delete();
+      }
+    }
+
+    // Inisialisasi Data
+    loadPengumumanData();
+    loadPerbaikanData();
+    loadSaranData();
+  </script>
+</body>
+</html>

@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Firebase SDK Compat -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
     <style>
         :root {
             --primary: #0f172a;
@@ -266,6 +270,11 @@
             background-color: #1d4ed8;
         }
 
+        .btn-submit:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+        }
+
         /* ALERT NOTIFICATION */
         .alert-box {
             display: none;
@@ -358,7 +367,7 @@
         <div class="topbar-container">
             <div class="topbar-info">
                 <span>📍 Jl. Lintas Baturaja-Muara Dua, Desa Tihang, Kec. Lengkiti</span>
-                <span>✉️ info@smpn30oku.sch.id</span>
+                <span>✉️ smpnegeri30okuoke@gmail.com</span>
             </div>
             <div>
                 <span>NPSN: 10604692</span>
@@ -401,11 +410,11 @@
 
         <div class="form-card">
             <div class="form-notice">
-                💡 <strong>Keterbukaan Informasi:</strong> Setiap saran dan aspirasi dari siswa, orang tua, alumni, maupun masyarakat umum akan ditinjau langsung oleh tim manajemen sekolah demi meningkatkan mutu pelayanan pendidikan.
+                📌 <strong>Keterbukaan Informasi:</strong> Setiap saran dan aspirasi dari siswa, orang tua, alumni, maupun masyarakat umum akan ditinjau langsung oleh tim manajemen sekolah demi meningkatkan mutu pelayanan pendidikan.
             </div>
 
             <div class="alert-box" id="successAlert">
-                🎉 <strong>Terima Kasih!</strong> Saran dan aspirasi Anda telah berhasil dikirim dan tersimpan di sistem kami.
+                ✅ <strong>Terima Kasih!</strong> Saran dan aspirasi Anda telah berhasil dikirim dan tersimpan di sistem kami.
             </div>
 
             <form id="feedbackForm" onsubmit="submitSaran(event)">
@@ -418,19 +427,19 @@
 
                     <div class="form-group" id="emailGroup">
                         <label for="emailPengirim">Email / Nomor HP Kontak</label>
-                        <input type="email" id="emailPengirim" placeholder="contoh@email.com">
+                        <input type="text" id="emailPengirim" placeholder="contoh@email.com / 0812xxx">
                     </div>
 
                     <div class="form-group">
                         <label for="kategoriSaran">Kategori Aspirasi *</label>
                         <select id="kategoriSaran" required>
                             <option value="">-- Pilih Kategori --</option>
-                            <option value="sarpras">Fasilitas & Sarana Prasarana</option>
-                            <option value="kbm">Proses Belajar Mengajar (KBM)</option>
-                            <option value="pelayanan">Pelayanan Administrasi & Tata Usaha</option>
-                            <option value="ekskul">Kegiatan Ekstrakurikuler & Keorganisasian</option>
-                            <option value="kebersihan">Kebersihan & Lingkungan Sekolah</option>
-                            <option value="lainnya">Lain-lain</option>
+                            <option value="Fasilitas & Sarana Prasarana">Fasilitas & Sarana Prasarana</option>
+                            <option value="Proses Belajar Mengajar (KBM)">Proses Belajar Mengajar (KBM)</option>
+                            <option value="Pelayanan Administrasi & Tata Usaha">Pelayanan Administrasi & Tata Usaha</option>
+                            <option value="Kegiatan Ekstrakurikuler">Kegiatan Ekstrakurikuler & Keorganisasian</option>
+                            <option value="Kebersihan & Lingkungan">Kebersihan & Lingkungan Sekolah</option>
+                            <option value="Lain-lain">Lain-lain</option>
                         </select>
                     </div>
 
@@ -438,10 +447,10 @@
                         <label for="peran">Status / Peran Anda *</label>
                         <select id="peran" required>
                             <option value="">-- Pilih Peran --</option>
-                            <option value="siswa">Siswa Aktif</option>
-                            <option value="orangtua">Orang Tua / Wali Murid</option>
-                            <option value="alumni">Alumni</option>
-                            <option value="masyarakat">Masyarakat Umum</option>
+                            <option value="Siswa Aktif">Siswa Aktif</option>
+                            <option value="Orang Tua / Wali">Orang Tua / Wali Murid</option>
+                            <option value="Alumni">Alumni</option>
+                            <option value="Masyarakat Umum">Masyarakat Umum</option>
                         </select>
                     </div>
 
@@ -464,7 +473,7 @@
 
                 </div>
 
-                <button type="submit" class="btn-submit">Kirim Aspirasi & Saran</button>
+                <button type="submit" id="btnSubmit" class="btn-submit">Kirim Aspirasi & Saran</button>
             </form>
         </div>
 
@@ -489,7 +498,7 @@
             <div class="footer-col">
                 <h4>Kontak Utama</h4>
                 <p>Desa Tihang, Kec. Lengkiti<br>Kab. Ogan Komering Ulu<br>Sumatera Selatan</p>
-                <p>Email: admin@smpn30oku.sch.id</p>
+                <p>Email: smpnegeri30okuoke@gmail.com</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -497,8 +506,22 @@
         </div>
     </footer>
 
-    <!-- SCRIPT HANDLER -->
+    <!-- SCRIPT HANDLER & FIREBASE -->
     <script>
+        // Inisialisasi Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyADQyNt-a0gLw6EBVxnYOCbHQEKrkr5M-M",
+            authDomain: "smpn-30-oku-848b9.firebaseapp.com",
+            projectId: "smpn-30-oku-848b9",
+            storageBucket: "smpn-30-oku-848b9.firebasestorage.app",
+            messagingSenderId: "1061021655997",
+            appId: "1:1061021655997:web:50b4868331857a85fbe8d4",
+            measurementId: "G-K0H0QS34J7"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
         function toggleAnonim(checkbox) {
             const namaInput = document.getElementById('namaPengirim');
             const emailInput = document.getElementById('emailPengirim');
@@ -515,19 +538,53 @@
             }
         }
 
-        function submitSaran(event) {
+        async function submitSaran(event) {
             event.preventDefault();
-            
+
+            const btnSubmit = document.getElementById('btnSubmit');
             const alertBox = document.getElementById('successAlert');
-            alertBox.style.display = 'block';
 
-            // Reset form
-            document.getElementById('feedbackForm').reset();
-            document.getElementById('namaPengirim').disabled = false;
-            document.getElementById('emailPengirim').disabled = false;
+            btnSubmit.disabled = true;
+            btnSubmit.innerText = "Mengirim...";
+            alertBox.style.display = 'none';
 
-            // Scroll focus to alert
-            alertBox.scrollIntoView({ behavior: 'smooth' });
+            const isAnonim = document.getElementById('anonimCheck').checked;
+            const nama = isAnonim ? 'Anonim' : (document.getElementById('namaPengirim').value.trim() || 'Anonim');
+            const email = isAnonim ? '-' : (document.getElementById('emailPengirim').value.trim() || '-');
+            const kategori = document.getElementById('kategoriSaran').value;
+            const peran = document.getElementById('peran').value;
+            const subjek = document.getElementById('subjek').value.trim();
+            const isiSaran = document.getElementById('isiSaran').value.trim();
+
+            try {
+                // Simpan ke Firestore koleksi 'saran'
+                await db.collection("saran").add({
+                    nama: nama,
+                    email: email,
+                    kategori: kategori,
+                    peran: peran,
+                    subjek: subjek,
+                    pesan: isiSaran,
+                    tanggal: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                // Tampilkan notifikasi sukses
+                alertBox.style.display = 'block';
+
+                // Reset form
+                document.getElementById('feedbackForm').reset();
+                document.getElementById('namaPengirim').disabled = false;
+                document.getElementById('emailPengirim').disabled = false;
+
+                // Scroll ke notifikasi
+                alertBox.scrollIntoView({ behavior: 'smooth' });
+
+            } catch (error) {
+                alert("Gagal mengirim saran: " + error.message);
+            } finally {
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = "Kirim Aspirasi & Saran";
+            }
         }
     </script>
 

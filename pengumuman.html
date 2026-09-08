@@ -1,485 +1,181 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMP Negeri 30 OKU - Pengumuman Sekolah</title>
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary: #0f172a;
-            --brand: #1e40af;
-            --brand-light: #3b82f6;
-            --accent: #d97706;
-            --bg-light: #f8fafc;
-            --surface: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --radius: 8px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pusat Informasi & Pengumuman - SMP Negeri 30 OKU</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] }
         }
+      }
+    }
+  </script>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* TOPBAR INSTANSI */
-        .topbar {
-            background-color: var(--primary);
-            color: #94a3b8;
-            font-size: 0.85rem;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .topbar-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .topbar-info span {
-            margin-right: 15px;
-        }
-
-        /* HEADER & NAVBAR */
-        header {
-            background-color: var(--surface);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-icon {
-            width: 42px;
-            height: 42px;
-            background: var(--brand);
-            color: white;
-            border-radius: var(--radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .brand-text h1 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--primary);
-            line-height: 1.2;
-        }
-
-        .brand-text p {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 8px;
-        }
-
-        nav a {
-            padding: 8px 14px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-main);
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-
-        nav a:hover {
-            color: var(--brand);
-            background-color: #eff6ff;
-        }
-
-        nav a.active {
-            color: var(--brand);
-            background-color: #dbeafe;
-            font-weight: 600;
-        }
-
-        /* PAGE HEADER */
-        .page-header {
-            background: linear-gradient(135deg, var(--primary), var(--brand));
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        .page-header h2 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .page-header p {
-            color: #cbd5e1;
-            font-size: 1rem;
-        }
-
-        /* MAIN CONTAINER */
-        .container {
-            max-width: 1200px;
-            margin: 50px auto 80px auto;
-            padding: 0 20px;
-        }
-
-        /* FILTER BUTTONS */
-        .filter-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 8px 18px;
-            border: 1px solid var(--border);
-            background-color: var(--surface);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-main);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background-color: var(--brand);
-            color: white;
-            border-color: var(--brand);
-        }
-
-        /* ANNOUNCEMENT LIST LAYOUT */
-        .announcement-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .announcement-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .announcement-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .card-meta {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 12px;
-            font-size: 0.85rem;
-        }
-
-        .badge {
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-        }
-
-        .badge-akademik { background-color: #dbeafe; color: var(--brand); }
-        .badge-kegiatan { background-color: #fef3c7; color: #b45309; }
-        .badge-info { background-color: #dcfce7; color: #15803d; }
-
-        .card-date {
-            color: var(--text-muted);
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
-
-        .card-excerpt {
-            font-size: 0.95rem;
-            color: var(--text-main);
-            margin-bottom: 15px;
-        }
-
-        .btn-read-more {
-            display: inline-block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--brand);
-        }
-
-        .btn-read-more:hover {
-            text-decoration: underline;
-        }
-
-        /* FOOTER */
-        footer {
-            background-color: var(--primary);
-            color: #94a3b8;
-            padding-top: 60px;
-            padding-bottom: 30px;
-            font-size: 0.9rem;
-        }
-
-        .footer-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h4 {
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-
-        .footer-col p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px 20px 0 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <!-- Firebase Web SDK (Compat Version) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
-<body>
+<body class="bg-slate-50 font-sans min-h-screen flex flex-col text-slate-800">
 
-    <!-- TOPBAR INFORMASI INSTANSI -->
-    <div class="topbar">
-        <div class="topbar-container">
-            <div class="topbar-info">
-                <span>📍 Jl. Lintas Baturaja-Muara Dua, Desa Tihang, Kec. Lengkiti</span>
-                <span>✉️ info@smpn30oku.sch.id</span>
-            </div>
-            <div>
-                <span>NPSN: 10604692</span>
-            </div>
+  <!-- TOP BAR -->
+  <div class="bg-[#0b1329] text-slate-300 text-xs py-2 px-6 flex justify-between items-center border-b border-slate-800">
+    <div class="flex items-center space-x-6">
+      <span class="flex items-center gap-1.5">
+        📍 Jl. Lintas Baturaja-Muara Dua, Desa Tihang, Kec. Lengkiti
+      </span>
+      <span class="flex items-center gap-1.5">
+        ✉️ info@smpn30oku.sch.id
+      </span>
+    </div>
+    <div>NPSN: 10604692</div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="bg-white border-b border-slate-200 py-3 px-8 flex justify-between items-center sticky top-0 z-50">
+    <div class="flex items-center space-x-3">
+      <div class="bg-[#1e40af] text-white font-extrabold text-xl w-10 h-10 rounded-lg flex items-center justify-center">
+        30
+      </div>
+      <div>
+        <div class="font-extrabold text-slate-900 text-lg leading-tight tracking-wide">SMP NEGERI 30 OKU</div>
+        <div class="text-xs text-slate-500 font-medium">Kabupaten Ogan Komering Ulu</div>
+      </div>
+    </div>
+    
+    <div class="flex items-center space-x-7 text-sm font-medium text-slate-700">
+      <a href="index.html" class="hover:text-blue-900 transition">Beranda</a>
+      <a href="profil.html" class="hover:text-blue-900 transition">Profil</a>
+      <a href="guru.html" class="hover:text-blue-900 transition">Data Guru</a>
+      <a href="pengumuman.html" class="bg-blue-100/80 text-blue-700 px-4 py-2 rounded-lg font-semibold">Pengumuman</a>
+      <a href="galeri.html" class="hover:text-blue-900 transition">Galeri</a>
+      <a href="perbaikan.html" class="hover:text-blue-900 transition">Perbaikan Data Siswa</a>
+      <a href="saran.html" class="hover:text-blue-900 transition">Kotak Saran</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="bg-[#152a60] text-white py-16 px-6 text-center">
+    <h1 class="text-4xl font-extrabold tracking-tight mb-3">Pusat Informasi & Pengumuman</h1>
+    <p class="text-slate-200 text-base max-w-2xl mx-auto font-normal">
+      Berita resmi, edaran akademik, dan jadwal agenda kegiatan SMP Negeri 30 OKU
+    </p>
+  </section>
+
+  <!-- CONTENT SECTION (FIREBASE OUTPUT) -->
+  <main class="flex-1 max-w-5xl w-full mx-auto p-6 md:p-8">
+    <div id="daftar-pengumuman" class="space-y-4">
+      <div class="bg-white p-8 rounded-xl border border-slate-200 shadow-sm text-center text-slate-400">
+        Memuat pengumuman...
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#0b132b] text-slate-300 pt-12 pb-6 px-8 mt-12 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-slate-800/80">
+      <!-- Kolom 1 -->
+      <div>
+        <h3 class="text-white font-bold text-base mb-4">SMP Negeri 30 OKU</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Satuan pendidikan tingkat menengah pertama di Kabupaten Ogan Komering Ulu yang berorientasi pada pembentukan karakter, IMTAQ, dan kecakapan berwawasan lingkungan.
+        </p>
+      </div>
+
+      <!-- Kolom 2 -->
+      <div>
+        <h3 class="text-white font-bold text-base mb-4">Navigasi Cepat</h3>
+        <ul class="space-y-2.5 text-sm text-slate-400">
+          <li><a href="profil.html" class="hover:text-white transition">Profil & Visi Misi</a></li>
+          <li><a href="guru.html" class="hover:text-white transition">Direktori Guru & Staf</a></li>
+          <li><a href="pengumuman.html" class="hover:text-white transition">Pusat Pengumuman</a></li>
+          <li><a href="perbaikan.html" class="hover:text-white transition">Formulir Perbaikan Data</a></li>
+        </ul>
+      </div>
+
+      <!-- Kolom 3 -->
+      <div>
+        <h3 class="text-white font-bold text-base mb-4">Kontak Utama</h3>
+        <div class="text-sm text-slate-400 leading-relaxed space-y-1">
+          <p>Desa Tihang, Kec. Lengkiti</p>
+          <p>Kab. Ogan Komering Ulu</p>
+          <p>Sumatera Selatan</p>
+          <p class="pt-3">Email: admin@smpn30oku.sch.id</p>
         </div>
+      </div>
     </div>
 
-    <!-- HEADER / NAVIGATION BAR -->
-    <header>
-        <div class="header-container">
-            <a href="index.html" class="brand-logo">
-                <div class="logo-icon">30</div>
-                <div class="brand-text">
-                    <h1>SMP NEGERI 30 OKU</h1>
-                    <p>Kabupaten Ogan Komering Ulu</p>
-                </div>
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Beranda</a></li>
-                    <li><a href="profil.html">Profil</a></li>
-                    <li><a href="guru.html">Data Guru</a></li>
-                    <li><a href="pengumuman.html" class="active">Pengumuman</a></li>
-                    <li><a href="galeri.html">Galeri</a></li>
-                    <li><a href="perbaikan-data.html">Perbaikan Data Siswa</a></li>
-                    <li><a href="saran.html">Kotak Saran</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <!-- Copyright -->
+    <div class="text-center text-xs text-slate-500 pt-6">
+      © 2026 SMP Negeri 30 OKU. Tugas Akhir / Skripsi Pengembangan Sistem Informasi Sekolah.
+    </div>
+  </footer>
 
-    <!-- PAGE HEADER BANNER -->
-    <section class="page-header">
-        <h2>Pusat Informasi & Pengumuman</h2>
-        <p>Berita resmi, edaran akademik, dan jadwal agenda kegiatan SMP Negeri 30 OKU</p>
-    </section>
+  <!-- FIREBASE SCRIPT -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyADQyNt-a0gLw6EBVxnYOCbHQEKrkr5M-M",
+      authDomain: "smpn-30-oku-848b9.firebaseapp.com",
+      projectId: "smpn-30-oku-848b9",
+      storageBucket: "smpn-30-oku-848b9.firebasestorage.app",
+      messagingSenderId: "1061021655997",
+      appId: "1:1061021655997:web:50b4868331857a85fbe8d4",
+      measurementId: "G-K0H0QS34J7"
+    };
 
-    <!-- MAIN CONTENT -->
-    <main class="container">
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    function loadPengumuman() {
+      db.collection("pengumuman").orderBy("tanggal", "desc").onSnapshot((snapshot) => {
+        const container = document.getElementById('daftar-pengumuman');
         
-        <!-- FILTER CATEGORY -->
-        <div class="filter-bar">
-            <button class="filter-btn active" onclick="filterCategory('all', this)">Semua Pengumuman</button>
-            <button class="filter-btn" onclick="filterCategory('akademik', this)">Akademik</button>
-            <button class="filter-btn" onclick="filterCategory('kegiatan', this)">Kegiatan & Ekskul</button>
-            <button class="filter-btn" onclick="filterCategory('info', this)">Informasi Umum</button>
-        </div>
-
-        <!-- LIST PENGUMUMAN -->
-        <div class="announcement-list" id="announcementList">
-            
-            <article class="announcement-card" data-category="akademik">
-                <div class="card-meta">
-                    <span class="badge badge-akademik">Akademik</span>
-                    <span class="card-date">🗓️ 15 Agustus 2026</span>
-                </div>
-                <h3 class="card-title">Jadwal Asesmen Sumatif Tengah Semester Ganjil TA 2026/2027</h3>
-                <p class="card-excerpt">Diberitahukan kepada seluruh siswa kelas VII, VIII, dan IX bahwa Asesmen Sumatif Tengah Semester Ganjil akan dilaksanakan mulai tanggal 7 September 2026. Jadwal per mata pelajaran dapat diunduh melalui lampiran resmi.</p>
-                <a href="#" class="btn-read-more">Baca Selengkapnya &rarr;</a>
-            </article>
-
-            <article class="announcement-card" data-category="info">
-                <div class="card-meta">
-                    <span class="badge badge-info">Informasi Umum</span>
-                    <span class="card-date">🗓️ 02 Agustus 2026</span>
-                </div>
-                <h3 class="card-title">Imbauan Verifikasi Mandiri & Perbaikan Data Siswa Berbasis NISN</h3>
-                <p class="card-excerpt">Bagi orang tua / wali murid yang mendapati kesalahan ejaan nama, tempat tanggal lahir, atau NIK pada kartu keluarga, diimbau untuk mengisi formulir perbaikan data secara daring sebelum batas akhir sinkronisasi Dapodik.</p>
-                <a href="perbaikan-data.html" class="btn-read-more">Ke Formulir Perbaikan Data &rarr;</a>
-            </article>
-
-            <article class="announcement-card" data-category="kegiatan">
-                <div class="card-meta">
-                    <span class="badge badge-kegiatan">Kegiatan</span>
-                    <span class="card-date">🗓️ 20 Juli 2026</span>
-                </div>
-                <h3 class="card-title">Pelaksanaan Perkemahan Sabtu-Minggu (Persami) Gudep Pramuka SMPN 30 OKU</h3>
-                <p class="card-excerpt">Dalam rangka penerimaan anggota baru Gerakan Pramuka SMP Negeri 30 OKU, kegiatan Persami wajib diikuti oleh seluruh siswa kelas VII pada tanggal 29 - 30 Juli 2026 di halaman utama sekolah.</p>
-                <a href="#" class="btn-read-more">Baca Selengkapnya &rarr;</a>
-            </article>
-
-            <article class="announcement-card" data-category="akademik">
-                <div class="card-meta">
-                    <span class="badge badge-akademik">Akademik</span>
-                    <span class="card-date">🗓️ 10 Juli 2026</span>
-                </div>
-                <h3 class="card-title">Pembagian Kelompok Pembelajaran & Wali Kelas Tahun Ajaran 2026/2027</h3>
-                <p class="card-excerpt">Daftar pembagian kelas untuk tahun ajaran baru telah dirilis. Pembina dan Wali Kelas VII (Tri Marliansari, S.Pd.), VIII (Riki Ya'cub, S.Pd.), dan IX (Makruf Ansori, S.Pd.) siap memandu proses KBM.</p>
-                <a href="guru.html" class="btn-read-more">Lihat Struktur Wali Kelas &rarr;</a>
-            </article>
-
-        </div>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>SMP Negeri 30 OKU</h4>
-                <p>Satuan pendidikan tingkat menengah pertama di Kabupaten Ogan Komering Ulu yang berorientasi pada pembentukan karakter, IMTAQ, dan kecakapan berwawasan lingkungan.</p>
+        if (snapshot.empty) {
+          container.innerHTML = `
+            <div class="bg-white p-8 rounded-xl border border-slate-200 shadow-sm text-center">
+              <p class="text-slate-500">Belum ada pengumuman terbaru saat ini.</p>
             </div>
-            <div class="footer-col">
-                <h4>Navigasi Cepat</h4>
-                <ul class="footer-links">
-                    <li><a href="profil.html">Profil & Visi Misi</a></li>
-                    <li><a href="guru.html">Direktori Guru & Staf</a></li>
-                    <li><a href="pengumuman.html">Pusat Pengumuman</a></li>
-                    <li><a href="perbaikan-data.html">Formulir Perbaikan Data</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Kontak Utama</h4>
-                <p>Desa Tihang, Kec. Lengkiti<br>Kab. Ogan Komering Ulu<br>Sumatera Selatan</p>
-                <p>Email: admin@smpn30oku.sch.id</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 SMP Negeri 30 OKU. Tugas Akhir / Skripsi Pengembangan Sistem Informasi Sekolah.</p>
-        </div>
-    </footer>
-
-    <!-- SCRIPT FILTER PENGUMUMAN -->
-    <script>
-        function filterCategory(category, btnElement) {
-            // Update active button state
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
-
-            // Filter cards
-            const cards = document.querySelectorAll('.announcement-card');
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+          `;
+          return;
         }
-    </script>
 
+        let html = "";
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          const tgl = data.tanggal ? new Date(data.tanggal.toDate()).toLocaleDateString("id-ID", {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          }) : "Baru saja";
+
+          html += `
+            <article class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition space-y-2">
+              <div class="flex items-center space-x-2 text-xs font-semibold text-amber-600">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 2 0 002-2V7a2 2 2 0 00-2-2H5a2 2 2 0 00-2 2v12a2 2 2 0 002 2z"></path></svg>
+                <span>${tgl}</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900">${data.judul}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed whitespace-pre-line">${data.isi}</p>
+            </article>
+          `;
+        });
+
+        container.innerHTML = html;
+      }, (err) => {
+        console.error("Gagal memuat pengumuman:", err);
+        document.getElementById('daftar-pengumuman').innerHTML = `
+          <div class="bg-red-50 text-red-600 p-4 rounded-xl border border-red-200 text-sm text-center">
+            Gagal memuat data pengumuman.
+          </div>
+        `;
+      });
+    }
+
+    loadPengumuman();
+  </script>
 </body>
 </html>
