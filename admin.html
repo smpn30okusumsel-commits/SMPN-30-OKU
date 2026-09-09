@@ -7,124 +7,150 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Firebase Compat SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
 <body class="bg-[#f1f5f9] text-slate-800 font-sans min-h-screen flex flex-col">
 
-  <!-- HEADER BAR -->
-  <header class="bg-[#1d4ed8] text-white px-6 py-3 flex justify-between items-center shadow-sm">
-    <h1 class="font-bold text-base tracking-wide">Admin Panel SMPN 30 OKU</h1>
-    <button onclick="alert('Berhasil keluar dari sistem.')" class="bg-[#ef4444] hover:bg-red-600 text-white text-xs px-4 py-1.5 rounded-md font-medium transition-colors">
-      Keluar
-    </button>
-  </header>
-
-  <!-- MAIN CONTAINER (SIDEBAR + CONTENT) -->
-  <div class="flex flex-1">
-    
-    <!-- SIDEBAR NAVIGATION -->
-    <aside class="w-60 bg-white p-4 flex-shrink-0 border-r border-slate-200">
-      <nav class="space-y-1">
-        <button onclick="switchTab('pengumuman')" id="btn-nav-pengumuman" class="nav-btn w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl text-slate-600 hover:bg-slate-50 transition-colors">
-          Pengumuman
-        </button>
-        <button onclick="switchTab('perbaikan')" id="btn-nav-perbaikan" class="nav-btn w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl bg-blue-50 text-blue-600 transition-colors">
-          Pengajuan Siswa
-        </button>
-        <button onclick="switchTab('saran')" id="btn-nav-saran" class="nav-btn w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl text-slate-600 hover:bg-slate-50 transition-colors">
-          Kotak Saran
-        </button>
-      </nav>
-    </aside>
-
-    <!-- CONTENT AREA -->
-    <main class="flex-1 p-6">
-      
-      <!-- TAB: PENGUMUMAN -->
-      <section id="content-pengumuman" class="tab-content hidden space-y-6">
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-          <h2 class="text-xl font-bold mb-4 text-slate-800">Buat Pengumuman Baru</h2>
-          <form id="form-pengumuman" onsubmit="tambahPengumuman(event)" class="space-y-4">
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Judul Pengumuman</label>
-              <input type="text" id="judul-pengumuman" required placeholder="Masukkan judul..." class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 mb-1">Isi Pengumuman</label>
-              <textarea id="isi-pengumuman" rows="3" required placeholder="Tuliskan isi pengumuman..." class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
-            </div>
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-md font-semibold transition-colors">
-              Publikasikan Pengumuman
-            </button>
-          </form>
+  <!-- Halaman Login (Tampil saat belum/setelah logout) -->
+  <div id="login-section" class="min-h-screen flex items-center justify-center p-4 bg-slate-100">
+    <div class="bg-white p-8 rounded-2xl shadow-md border border-slate-200 max-w-md w-full">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold text-slate-800">Login Admin</h2>
+        <p class="text-xs text-slate-500 mt-1">SMP Negeri 30 OKU</p>
+      </div>
+      <form onsubmit="loginAdmin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Email Admin</label>
+          <input type="email" id="login-email" required placeholder="admin@smpn30oku.sch.id" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
         </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Kata Sandi</label>
+          <input type="password" id="login-password" required placeholder="••••••••" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        </div>
+        <button type="submit" id="btn-login" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors">
+          Masuk
+        </button>
+      </form>
+    </div>
+  </div>
 
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-          <h2 class="text-xl font-bold mb-4 text-slate-800">Daftar Pengumuman Aktif</h2>
+  <!-- Dashboard Admin (Tampil saat berhasil login) -->
+  <div id="admin-dashboard" class="hidden min-h-screen flex-col flex-1">
+    <!-- HEADER BAR -->
+    <header class="bg-[#1d4ed8] text-white px-6 py-3 flex justify-between items-center shadow-sm">
+      <h1 class="font-bold text-base tracking-wide">Admin Panel SMPN 30 OKU</h1>
+      <button onclick="logout()" class="bg-[#ef4444] hover:bg-red-600 text-white text-xs px-4 py-1.5 rounded-md font-medium transition-colors">
+        Keluar
+      </button>
+    </header>
+
+    <!-- MAIN CONTAINER (SIDEBAR + CONTENT) -->
+    <div class="flex flex-1">
+      
+      <!-- SIDEBAR NAVIGATION -->
+      <aside class="w-60 bg-white p-4 flex-shrink-0 border-r border-slate-200">
+        <nav class="space-y-1">
+          <button onclick="switchTab('pengumuman')" id="btn-nav-pengumuman" class="nav-btn w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl text-slate-600 hover:bg-slate-50 transition-colors">
+            Pengumuman
+          </button>
+          <button onclick="switchTab('perbaikan')" id="btn-nav-perbaikan" class="nav-btn w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl bg-blue-50 text-blue-600 transition-colors">
+            Pengajuan Siswa
+          </button>
+          <button onclick="switchTab('saran')" id="btn-nav-saran" class="nav-btn w-full text-left px-4 py-2.5 text-sm font-medium rounded-xl text-slate-600 hover:bg-slate-50 transition-colors">
+            Kotak Saran
+          </button>
+        </nav>
+      </aside>
+
+      <!-- CONTENT AREA -->
+      <main class="flex-1 p-6">
+        
+        <!-- TAB: PENGUMUMAN -->
+        <section id="content-pengumuman" class="tab-content hidden space-y-6">
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <h2 class="text-xl font-bold mb-4 text-slate-800">Buat Pengumuman Baru</h2>
+            <form id="form-pengumuman" onsubmit="tambahPengumuman(event)" class="space-y-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Judul Pengumuman</label>
+                <input type="text" id="judul-pengumuman" required placeholder="Masukkan judul..." class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Isi Pengumuman</label>
+                <textarea id="isi-pengumuman" rows="3" required placeholder="Tuliskan isi pengumuman..." class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+              </div>
+              <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-md font-semibold transition-colors">
+                Publikasikan Pengumuman
+              </button>
+            </form>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <h2 class="text-xl font-bold mb-4 text-slate-800">Daftar Pengumuman Aktif</h2>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm border-collapse">
+                <thead class="bg-[#f8fafc] text-slate-700 border-b border-slate-100">
+                  <tr>
+                    <th class="p-3.5 font-semibold">Tanggal</th>
+                    <th class="p-3.5 font-semibold">Judul</th>
+                    <th class="p-3.5 font-semibold">Isi Pengumuman</th>
+                    <th class="p-3.5 font-semibold text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="tabel-pengumuman" class="divide-y divide-slate-100">
+                  <tr><td colspan="4" class="p-4 text-center text-slate-400">Memuat pengumuman...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- TAB: PENGAJUAN SISWA -->
+        <section id="content-perbaikan" class="tab-content bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+          <h2 class="text-xl font-bold mb-6 text-slate-800">Daftar Pengajuan Perbaikan Data Siswa</h2>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-sm border-collapse">
               <thead class="bg-[#f8fafc] text-slate-700 border-b border-slate-100">
                 <tr>
                   <th class="p-3.5 font-semibold">Tanggal</th>
-                  <th class="p-3.5 font-semibold">Judul</th>
-                  <th class="p-3.5 font-semibold">Isi Pengumuman</th>
+                  <th class="p-3.5 font-semibold">Nama Siswa</th>
+                  <th class="p-3.5 font-semibold">NISN</th>
+                  <th class="p-3.5 font-semibold">Keterangan Perbaikan</th>
+                  <th class="p-3.5 font-semibold">Berkas</th>
+                  <th class="p-3.5 font-semibold">Status</th>
                   <th class="p-3.5 font-semibold text-center">Aksi</th>
                 </tr>
               </thead>
-              <tbody id="tabel-pengumuman" class="divide-y divide-slate-100">
-                <tr><td colspan="4" class="p-4 text-center text-slate-400">Memuat pengumuman...</td></tr>
+              <tbody id="tabel-perbaikan" class="divide-y divide-slate-100">
+                <tr><td colspan="7" class="p-4 text-center text-slate-400">Memuat pengajuan...</td></tr>
               </tbody>
             </table>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- TAB: PENGAJUAN SISWA -->
-      <section id="content-perbaikan" class="tab-content bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-        <h2 class="text-xl font-bold mb-6 text-slate-800">Daftar Pengajuan Perbaikan Data Siswa</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm border-collapse">
-            <thead class="bg-[#f8fafc] text-slate-700 border-b border-slate-100">
-              <tr>
-                <th class="p-3.5 font-semibold">Tanggal</th>
-                <th class="p-3.5 font-semibold">Nama Siswa</th>
-                <th class="p-3.5 font-semibold">NISN</th>
-                <th class="p-3.5 font-semibold">Keterangan Perbaikan</th>
-                <th class="p-3.5 font-semibold">Berkas</th>
-                <th class="p-3.5 font-semibold">Status</th>
-                <th class="p-3.5 font-semibold text-center">Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="tabel-perbaikan" class="divide-y divide-slate-100">
-              <tr><td colspan="7" class="p-4 text-center text-slate-400">Memuat pengajuan...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+        <!-- TAB: KOTAK SARAN -->
+        <section id="content-saran" class="tab-content hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+          <h2 class="text-xl font-bold mb-6 text-slate-800">Masukan & Kotak Saran</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm border-collapse">
+              <thead class="bg-[#f8fafc] text-slate-700 border-b border-slate-100">
+                <tr>
+                  <th class="p-3.5 font-semibold">Tanggal</th>
+                  <th class="p-3.5 font-semibold">Pengirim</th>
+                  <th class="p-3.5 font-semibold">Kategori</th>
+                  <th class="p-3.5 font-semibold">Subjek & Pesan</th>
+                  <th class="p-3.5 font-semibold text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-saran" class="divide-y divide-slate-100">
+                <tr><td colspan="5" class="p-4 text-center text-slate-400">Memuat saran...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-      <!-- TAB: KOTAK SARAN -->
-      <section id="content-saran" class="tab-content hidden bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-        <h2 class="text-xl font-bold mb-6 text-slate-800">Masukan & Kotak Saran</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm border-collapse">
-            <thead class="bg-[#f8fafc] text-slate-700 border-b border-slate-100">
-              <tr>
-                <th class="p-3.5 font-semibold">Tanggal</th>
-                <th class="p-3.5 font-semibold">Pengirim</th>
-                <th class="p-3.5 font-semibold">Kategori</th>
-                <th class="p-3.5 font-semibold">Subjek & Pesan</th>
-                <th class="p-3.5 font-semibold text-center">Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="tabel-saran" class="divide-y divide-slate-100">
-              <tr><td colspan="5" class="p-4 text-center text-slate-400">Memuat saran...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-    </main>
-
+      </main>
+    </div>
   </div>
 
   <!-- MODAL PRATINJAU BERKAS DOKUMEN -->
@@ -160,6 +186,51 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
+    const auth = firebase.auth();
+
+    // Kontrol Tampilan Login & Dashboard Admin
+    auth.onAuthStateChanged(user => {
+      const loginSec = document.getElementById('login-section');
+      const dashSec = document.getElementById('admin-dashboard');
+      if (user) {
+        loginSec.classList.add('hidden');
+        dashSec.classList.remove('hidden');
+        dashSec.classList.add('flex');
+      } else {
+        loginSec.classList.remove('hidden');
+        dashSec.classList.add('hidden');
+        dashSec.classList.remove('flex');
+      }
+    });
+
+    // Fungsi Proses Login Admin
+    async function loginAdmin(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const btn = document.getElementById('btn-login');
+
+      btn.disabled = true;
+      btn.innerText = "Memeriksa...";
+
+      try {
+        await auth.signInWithEmailAndPassword(email, password);
+      } catch (err) {
+        alert("Gagal masuk: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Masuk";
+      }
+    }
+
+    // Fungsi Logout Admin
+    function logout() {
+      if (confirm("Apakah Anda yakin ingin keluar dari halaman admin?")) {
+        auth.signOut().catch(err => {
+          alert("Gagal keluar: " + err.message);
+        });
+      }
+    }
 
     const berkasStore = {};
 
@@ -178,7 +249,6 @@
       }
     }
 
-    // Pemindai Otomatis URL / Base64 Berkas di Firestore
     function deteksiURLBerkas(data) {
       if (!data) return null;
       
@@ -288,9 +358,6 @@
         let html = "";
         snapshot.forEach(doc => {
           const data = doc.data();
-          
-          console.log("Data Firestore [ID: " + doc.id + "]:", data);
-
           const tgl = data.tanggal ? new Date(data.tanggal.toDate()).toLocaleDateString("id-ID") : "-";
           const status = data.status || "Pending";
           
